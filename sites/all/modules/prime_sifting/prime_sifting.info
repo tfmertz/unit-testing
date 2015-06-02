@@ -1,0 +1,7 @@
+name = Prime Sifting
+description = Returns the number of primes below a certain number
+package = Tom and Conor's Gigantic Package
+core = 7.x
+files[] = prime_sifting.module
+files[] = prime_sifting.test
+dependencies = simpletest

@@ -1,0 +1,76 @@
+<?php
+
+class TitleCaseTest extends DrupalUnitTestCase {
+
+    public static function getInfo() {
+        return array(
+            'name' => 'Title Case tests',
+            'description' => 'Test that Title Case works properly',
+            'group' => 'Examples',
+        );
+    }
+
+    function test_titleCase_letter() {
+        $result = titleCase('barn');
+        $message = 'The word barn will turn into Barn';
+        $this->assertEqual($result, 'Barn');
+    }
+
+    function test_titleCase_twoWords() {
+        $result = titleCase('the fairytale');
+        $message = "Input the fairytale will return The Fairytale.";
+        $this->assertEqual($result, 'The Fairytale');
+    }
+
+    function test_titleCase_twoWordsWithSomeCaps() {
+        $result = titleCase('tHe harry bUtt');
+        $message = "Input tHe harry bUtt will return The Harry Butt.";
+        $this->assertEqual($result, 'The Harry Butt');
+    }
+
+    function test_titleCase_multipleWordsWithExceptions() {
+        $result = titleCase('it was a hairy bumstead');
+        $message = "Input it was a hairy bumstead and return It Was a Hairy Bumstead";
+        $this->assertEqual($result, 'It Was a Hairy Bumstead');
+    }
+
+    function test_titleCase_firstWordCap() {
+        $result = titleCase('a hairy bum is not on fire');
+        $this->assertEqual($result, 'A Hairy Bum is not on Fire');
+    }
+
+    function test_titleCase_number() {
+        $result = titleCase("there were 7 hairy butts at the momma's meetup");
+        $this->assertEqual($result, "There Were 7 Hairy Butts at the Momma's Meetup");
+    }
+}
+
+class TitleCaseWebTest extends DrupalWebTestCase {
+
+    //create the information to display in the line
+    public static function getInfo() {
+        return array(
+            'name' => 'Title Case Web Tests',
+            'description' => 'Tests that the form works properly',
+            'group' => 'Examples',
+        );
+    }
+
+    //set up the drupal web test
+    public function setUp() {
+        parent::setUp(array('title_case'));
+
+        $info['sentence'] = "a hairy bumstead";
+
+        //post a form to the page
+        $this->drupalPost('title_case', $info, t('Enter'));
+    }
+
+    //test that the form submits correctly
+    public function test_titleCase_formPost() {
+        $this->drupalGet('title_case_results');
+
+        $this->assertText("A Hairy Bumstead", 'The text is correct');
+    }
+
+}

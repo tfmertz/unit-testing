@@ -1,0 +1,12 @@
+<?php
+function simpletest_example_empty_mysql_date($date_string) {
+    if (empty($date_string) || $date_string == '0000-00-00' || $date_string == '0000-00-00 00:00:00') {
+        $date_is_empty = TRUE;
+    }
+    else {
+        $date_is_empty = FALSE;
+    }
+
+    return $date_is_empty;
+}
+?>

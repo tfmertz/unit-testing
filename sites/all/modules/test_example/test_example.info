@@ -1,0 +1,7 @@
+name = Unit Test Example
+description = Tests an empty date.
+package = Tom and Conor's Gigantic Package
+core = 7.x
+files[] = test_example.module
+files[] = test_example.test
+dependencies[] = simpletest

@@ -1,0 +1,39 @@
+<?php
+
+class PrimeSiftingTest extends DrupalUnitTestCase {
+    public static function getInfo() {
+        return array(
+            'name' => 'Prime Sifting tests',
+            'description' => 'Tests if prime sifting works.',
+            'group' => 'Examples',
+        );
+    }
+
+    function test_primeSifting_upToEighty() {
+        $result = primeSifting(6000);
+        $this->assertEqual($result, 783);
+    }
+}
+
+class PrimeSiftingWebTest extends DrupalWebTestCase {
+    public static function getInfo() {
+        return array(
+            'name' => 'Prime Sifting Form Test',
+            'description' => 'Tests if the drupal form works correctly.',
+            'group' => 'Examples',
+        );
+    }
+
+    public function setUp() {
+        parent::setUp(array('prime_sifting'));
+
+        $info['number'] = 69;
+
+        $this->drupalPost('prime_sifting', $info, t('Calculate'));
+    }
+
+    public function testPrimeSiftingForm() {
+        $this->drupalGet('prime_results');
+        $this->assertText('There are 19 prime numbers between 0 and 69.');
+    }
+}

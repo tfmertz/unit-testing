@@ -1,0 +1,65 @@
+<?php
+
+function titleCase($string) {
+    $words = explode(" ", strtolower($string));
+    $upper = array();
+    $stock_words = ['a', 'is', 'not', 'on', 'at', 'the'];
+    foreach ($words as $key => $word) {
+        if($key == 0) {
+            $new_word = strtoupper($word[0]) . substr($word, 1);
+            array_push($upper, $new_word);
+        }
+        elseif (in_array($word, $stock_words)) {
+            array_push($upper, $word);
+        }
+        else {
+            $new_word = strtoupper($word[0]) . substr($word, 1);
+            array_push($upper, $new_word);
+        }
+    }
+    return implode(" ", $upper);
+}
+
+function title_case_menu() {
+    $item['title_case'] = array(
+        'title' => 'Title Case Form',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('title_case_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $item['title_case_results'] = array(
+        'title' => 'Title Case Results',
+        'page callback' => 'title_case_results',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $item;
+}
+
+function title_case_form() {
+    $form['sentence'] = array(
+        '#title' => 'Sentence',
+        '#type' => 'textfield',
+        '#description' => 'Enter your sentence to captialize',
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Enter',
+    );
+
+    return $form;
+}
+
+function title_case_form_submit($form, &$form_state) {
+    $string = $form_state['values']['sentence'];
+
+
+    $_SESSION['string'] = $string;
+    $form_state['redirect'] = 'title_case_results';
+}
+
+function title_case_results() {
+    $string = $_SESSION['string'];
+    return titleCase($string);
+}

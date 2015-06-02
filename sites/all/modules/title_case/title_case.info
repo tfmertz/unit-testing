@@ -1,0 +1,7 @@
+name = Title Case
+description = Takes a string and returns that same string in title case.
+package = Tom and Conor's Gigantic Package
+core = 7.x
+files[] = title_case.module
+files[] = title_case.test
+dependencies = simpletest
