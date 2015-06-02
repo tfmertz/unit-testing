@@ -1,0 +1,7 @@
+name = Collatz Conjecture
+description = I have no clue what this does.
+package = Epicodus Example
+core = 7.x
+files[] = collatz.module
+files[] = collatz.test
+dependencies[] = simpletest
